@@ -232,9 +232,6 @@ module.exports = {
                 options: {
                   symbolId: '[name]_[hash]'
                 }
-              },
-              {
-                loader: require.resolve('svgo-loader')
               }
             ]
           },
