@@ -16,6 +16,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
@@ -182,6 +183,21 @@ module.exports = {
               compact: true,
             },
           },
+          {
+            test: /\.svg$/,
+            include: [paths.appSprite],
+            use: [
+              {
+                loader: require.resolve('svg-sprite-loader'),
+                options: {
+                  symbolId: '[name]_[hash]'
+                }
+              },
+              {
+                loader: require.resolve('svgo-loader')
+              }
+            ]
+          },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -249,7 +265,7 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.js$/, /\.html$/, /\.json$/],
+            exclude: [/\.js$/, /\.html$/, /\.json$/, paths.appSprite],
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },
@@ -353,6 +369,7 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new SpriteLoaderPlugin(),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
