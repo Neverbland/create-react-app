@@ -237,7 +237,6 @@ module.exports = {
                 loader: require.resolve('svg-sprite-loader'),
                 options: {
                   symbolId: '[name]_[hash]',
-                  extract: true,
                   esModule: false
                 }
               }
