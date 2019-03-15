@@ -8,6 +8,8 @@
 // @remove-on-eject-end
 'use strict';
 
+const babelConfig = require('./babel.config');
+
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -34,6 +36,20 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 // @remove-on-eject-begin
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
+
+let pathsToTreatAsInternal = [];
+
+try {
+  const projectBabelConfig = require(`${
+    paths.appPath
+  }/react-scripts-overrides.js`)({ paths });
+  pathsToTreatAsInternal = projectBabelConfig.pathsToTreatAsInternal;
+} catch (error) {
+  console.log(
+    `no "react-scripts-overrides.js" file found in "${paths.appPath}"`
+  );
+  console.log(error);
+}
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -344,7 +360,7 @@ module.exports = function(webpackEnv) {
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: paths.appSrc,
+              include: [paths.appSrc].concat(pathsToTreatAsInternal),
               loader: require.resolve('babel-loader'),
               options: {
                 customize: require.resolve(
@@ -353,7 +369,7 @@ module.exports = function(webpackEnv) {
                 // @remove-on-eject-begin
                 babelrc: false,
                 configFile: false,
-                presets: [require.resolve('babel-preset-react-app')],
+                presets: babelConfig.presets,
                 // Make sure we have a unique cache identifier, erring on the
                 // side of caution.
                 // We remove this when the user ejects because the default
@@ -382,7 +398,7 @@ module.exports = function(webpackEnv) {
                       },
                     },
                   ],
-                ],
+                ].concat(babelConfig.plugins),
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
                 // directory for faster rebuilds.
@@ -629,7 +645,7 @@ module.exports = function(webpackEnv) {
             '!**/src/setupProxy.*',
             '!**/src/setupTests.*',
           ],
-          watch: paths.appSrc,
+          watch: [paths.appSrc].concat(pathsToTreatAsInternal),
           silent: true,
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
