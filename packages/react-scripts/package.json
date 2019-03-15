@@ -1,18 +1,14 @@
 {
-  "name": "react-scripts",
-  "version": "4.0.3",
+  "name": "@neverbland/monorepo-react-scripts-v1",
+  "version": "2.1.11",
   "description": "Configuration and scripts for Create React App.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/facebook/create-react-app.git",
-    "directory": "packages/react-scripts"
-  },
+  "repository": "neverbland/create-react-app",
   "license": "MIT",
   "engines": {
     "node": "^10.12.0 || >=12.0.0"
   },
   "bugs": {
-    "url": "https://github.com/facebook/create-react-app/issues"
+    "url": "https://github.com/neverbland/create-react-app/issues"
   },
   "files": [
     "bin",
