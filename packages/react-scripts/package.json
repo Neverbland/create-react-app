@@ -1,6 +1,6 @@
 {
   "name": "@neverbland/monorepo-react-scripts-v1",
-  "version": "2.1.13",
+  "version": "2.1.14",
   "description": "Configuration and scripts for Create React App.",
   "repository": "neverbland/create-react-app",
   "license": "MIT",
