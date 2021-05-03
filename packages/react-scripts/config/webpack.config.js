@@ -428,12 +428,12 @@ module.exports = function (webpackEnv) {
                   'babel-preset-react-app/webpack-overrides'
                 ),
                 presets: [
+                  ...babelConfig.presets
                   [
                     require.resolve('babel-preset-react-app'),
                     {
                       runtime: hasJsxRuntime ? 'automatic' : 'classic',
                     },
-                    ...babelConfig.presets
                   ],
                 ],
                 // @remove-on-eject-begin
