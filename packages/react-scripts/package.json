@@ -1,11 +1,11 @@
 {
   "name": "@neverbland/monorepo-react-scripts-v1",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "description": "Configuration and scripts for Create React App.",
   "repository": "neverbland/create-react-app",
   "license": "MIT",
   "engines": {
-    "node": "^10.12.0 || >=12.0.0"
+    "node": ">=12.0.0"
   },
   "bugs": {
     "url": "https://github.com/neverbland/create-react-app/issues"
