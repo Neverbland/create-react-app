@@ -1,13 +1,10 @@
 module.exports = {
   presets: [
-    '@babel/env',
-    '@babel/typescript',
-    '@babel/react',
-    'babel-preset-react-app',
+    '@babel/preset-env',
+    '@babel/preset-react',
+    '@babel/preset-typescript',
   ],
   plugins: [
-    '@babel/proposal-class-properties',
-    '@babel/proposal-object-rest-spread',
     'babel-plugin-macros',
   ],
 };
